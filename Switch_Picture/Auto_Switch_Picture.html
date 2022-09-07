@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    .indexes{
+        height: 20px;
+        display: flex;
+        position: absolute;
+        bottom: 10px;
+        /* left: 50%;
+        transform: translateX(-50%); */
+    }
+
+    .indexes li{
+        background: #fff;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin: 0 3px;
+    }
+    .indexes li.active{
+        background: blue;
+    }
+    .arrow{
+        width: 30px;
+        height: 50px;
+        background: deeppink;
+        position: absolute;
+    }
+    .arrow.arrow-left{
+        left: 180px;
+    }
+    .arrow.arrow-right{
+        right: 180px;
+    }
+</style>
+<body>
+<div style="position: relative;align-items: center; display: flex; justify-content: center; margin: 100px auto;">
+    <div class="arrow arrow-left" onclick="prev()"></div>
+    <div class="arrow arrow-right" onclick="next()"></div>
+    <img id="demo1" src="https://images.pexels.com/photos/65619/roses-pink-family-rose-family-65619.jpeg?auto=compress&cs=tinysrgb&w=600">
+    <ul class="indexes">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script>
+    function next() {
+        index++
+        if(index === 4) index = 0
+        clearInterval(timer)
+        setStyle()
+        run()
+    }
+    function prev() {
+        index--
+        if(index === -1) index = 3
+        clearInterval(timer)
+        setStyle()
+        run()
+    }
+    //下面是图片的地址链接
+    let arr = [
+        "https://images.pexels.com/photos/386015/pexels-photo-386015.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/39517/rose-flower-blossom-bloom-39517.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/697259/pexels-photo-697259.jpeg?auto=compress&cs=tinysrgb&w=600",
+        "https://images.pexels.com/photos/65619/roses-pink-family-rose-family-65619.jpeg?auto=compress&cs=tinysrgb&w=600"
+    ]
+    var demo1 = document.getElementById('demo1')
+
+
+    let indexes = document.getElementsByClassName('indexes')[0].children
+    let timer = -1
+    for (let i = 0; i < indexes.length; i++) {
+        indexes[i].onmouseenter = function () {
+
+            index = i
+            clearInterval(timer)
+            setStyle()
+        }
+        indexes[i].onmouseleave = function () {
+            run()
+        }
+    }
+    var index = 0
+    function run() {
+        timer = setInterval(() => {
+            index++
+
+            if(index === 4) index = 0
+
+            setStyle()
+        }, 1000);
+    }
+    function setStyle() {
+        demo1.src = arr[index]
+
+        let active = document.getElementsByClassName('active')[0]
+        active.classList.remove('active')
+        indexes[index].classList.add("active")
+    }
+    run()
+</script>
+</body>
+</html>

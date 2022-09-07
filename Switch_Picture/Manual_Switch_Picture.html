@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--设置语言为中文-->
+<html lang="zh-CN">
+<head>
+    <!--设置字体格式为utf-8-->
+    <meta charset="utf-8">
+    <title>图片切换</title>
+    <script type="text/javascript">
+        /*把“匿名函数”赋值给window的onload事件,当window加载完成时会触发onload事件，执行函数体内的语句。*/
+        window.onload = function () {
+            //获取img标签
+            var img = document.getElementsByTagName("img")[0];
+            //创建一个数组保存所有图片的路径,设置图片文件的路径
+            var imgArr = ["https://images.pexels.com/photos/230629/pexels-photo-230629.jpeg?auto=compress&cs=tinysrgb&w=400", 
+			"https://images.pexels.com/photos/414181/pexels-photo-414181.jpeg?auto=compress&cs=tinysrgb&w=400", 
+			"https://images.pexels.com/photos/13291687/pexels-photo-13291687.jpeg?auto=compress&cs=tinysrgb&w=400",
+			"https://images.pexels.com/photos/33109/fall-autumn-red-season.jpg?auto=compress&cs=tinysrgb&w=400", 
+			"https://images.pexels.com/photos/1438761/pexels-photo-1438761.jpeg?auto=compress&cs=tinysrgb&w=400"];
+            //设置图片初始值
+            var index = 0;
+            //点击元素时触发，显示下一张图片
+            document.getElementById("change1").onclick = function () {
+                //每点击一次按钮，数组索引数加1
+                index++;
+                //判断index是否大于数组的长度(数组的最大下标)
+                if (index > imgArr.length - 1) {
+                    index = 0;//从第一张开始
+                }
+                img.src = imgArr[index]; //显示当前图片
+            }
+            document.getElementById("change2").onclick = function () {
+                //每点击一次按钮，数组索引数减1
+                index--;
+                //判断index是否大于数组的长度(数组的最大下标)
+                if (index < 0) {
+                    index = imgArr.length - 1;//从最后一张开始
+                }
+                img.src = imgArr[index]; //显示当前图片
+            }
+        };
+    </script>
+</head>
+<body>
+<!--图片居中-->
+<div class="outer" align="center">
+    <!--alt图像的备选文本，图像无法显示时采用。-->
+    <img src="https://images.pexels.com/photos/230629/pexels-photo-230629.jpeg?auto=compress&cs=tinysrgb&w=400"  alt="图片" title="图片"><br />
+    <br />
+    <!--切换按钮-->
+    <button id='change1'>下一张</button>
+    <button id='change2'>上一张</button>
+</div>
+</body>
